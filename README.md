@@ -287,7 +287,7 @@ npm run test
 npm run test:cov
 ```
 
-## 📚 Dokumentasi API (file postman ada di root project)
+## 📚 Dokumentasi API (File Postman Ada di Root Project)
 
 ### Base URL
 
@@ -485,53 +485,3 @@ CREATE TABLE posts (
   updatedAt TIMESTAMP
 );
 ```
-
-## 📝 Catatan Development
-
-### Peningkatan Type Safety
-
-1. **Konsistensi DTO dan Model**
-   - Membuat interface `UserCreationAttributes` dan `PostCreationAttributes`
-   - Memastikan DTO sesuai dengan requirement model tanpa menggunakan `as any`
-
-2. **Integrasi Sequelize TypeScript**
-   - Menggunakan explicit creation interfaces sebagai parameter generic kedua
-   - Menghindari circular reference errors
-
-3. **Konfigurasi JWT**
-   - Menggunakan `JwtModule.registerAsync()` dengan `ConfigService`
-   - Manajemen konfigurasi yang type-safe
-
-### Issue Umum & Solusi
-
-**Issue**: `Type 'CreateUserDto' is not assignable to parameter`
-**Solusi**: Definisikan explicit creation interfaces di models
-
-**Issue**: `Cannot find module 'src/app.module'` di tests
-**Solusi**: Gunakan relative imports atau konfigurasi `moduleNameMapper` di Jest config
-
-**Issue**: Koneksi database di tests
-**Solusi**: Gunakan file `.env.test` terpisah dengan test database
-
-## 🤝 Kontribusi
-
-1. Fork repository ini
-2. Buat feature branch (`git checkout -b feature/FiturBaru`)
-3. Commit perubahan Anda (`git commit -m 'Menambahkan FiturBaru'`)
-4. Push ke branch (`git push origin feature/FiturBaru`)
-5. Buka Pull Request
-
-## 📄 Lisensi
-
-Proyek ini menggunakan [lisensi MIT](LICENSE).
-
-## 👨‍💻 Penulis
-
-Dibuat sebagai bagian dari proyek pembelajaran NestJS.
-
-## 🔗 Sumber Referensi
-
-- [NestJS Documentation](https://docs.nestjs.com)
-- [Sequelize Documentation](https://sequelize.org)
-- [JWT.io](https://jwt.io)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
