@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User as UserModel } from './user.model';
 import { CreateUserDto } from './dto/create-user.dto';
+import { hashPassword } from 'src/common/utils/bcrypt/bcrypt.utils';
 
 @Injectable()
 export class UsersService {
@@ -11,7 +12,15 @@ export class UsersService {
   ) {}
 
   async create(dto: CreateUserDto) {
-    return this.userModel.create(dto);
+    const hashed = hashPassword(dto.password);
+    const user = await this.userModel.create({
+      ...dto,
+      password: hashed,
+    });
+    return {
+      statusCode: 201,
+      message: 'User created successfully',
+    };
   }
 
   async findAll() {
@@ -19,6 +28,20 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return this.userModel.findByPk(id, { include: { all: true } });
+    const user = await this.userModel.findByPk(id, {
+      attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt'],
+      },
+      include: { all: true },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  async findByEmail(email: string) {
+    return this.userModel.findOne({ where: { email } });
   }
 }

@@ -5,6 +5,7 @@ export interface UserCreationAttributes {
   name: string;
   email: string;
   password: string;
+  gender?: 'male' | 'female';
 }
 
 @Table({ tableName: 'users' })
@@ -59,6 +60,18 @@ export class User extends Model<User, UserCreationAttributes> {
     },
   })
   declare password: string;
+
+  @Column({
+    type: DataType.ENUM('male', 'female'),
+    allowNull: true,
+    validate: {
+      isIn: {
+        args: [['male', 'female']],
+        msg: 'Gender must be either "male" or "female"',
+      },
+    },
+  })
+  declare gender: 'male' | 'female';
 
   @HasMany(() => Post)
   declare posts: Post[];

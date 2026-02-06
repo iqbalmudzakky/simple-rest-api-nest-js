@@ -18,7 +18,7 @@ import { AuthModule } from './auth/auth.module';
       dialect: 'postgres',
       host: process.env.DB_HOST || 'localhost',
       port: Number(process.env.DB_PORT) || 5432,
-      username: process.env.DB_USER || 'nestuser',
+      username: process.env.DB_USERNAME || 'nestuser',
       password: process.env.DB_PASSWORD || 'nestpass123',
       database: process.env.DB_NAME || 'nestdb_dev',
       autoLoadModels: true,

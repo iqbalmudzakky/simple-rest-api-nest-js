@@ -12,5 +12,19 @@ services:
     volumes:
       - nest_postgres_data:/var/lib/postgresql/data
 
+  postgres_test:
+    image: postgres:16
+    container_name: nest_test_postgres_test
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: nestuser
+      POSTGRES_PASSWORD: nestpass123
+      POSTGRES_DB: nestdb_test
+    volumes:
+      - nest_postgres_test_data:/var/lib/postgresql/data
+
 volumes:
   nest_postgres_data:
+  nest_postgres_test_data:
